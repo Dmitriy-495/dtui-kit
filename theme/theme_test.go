@@ -1,11 +1,12 @@
 package theme
 
 import (
+	"image/color"
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/lipgloss/v2"
 )
 
 // TestColors_AreNotEmpty — простая защита от опечатки вида
@@ -13,17 +14,17 @@ import (
 // не паникует сам по себе, но рендерится некорректно и молча, что
 // сложно заметить визуально сразу.
 func TestColors_AreNotEmpty(t *testing.T) {
-	colors := map[string]string{
-		"ColorBorder":  string(ColorBorder),
-		"ColorOK":      string(ColorOK),
-		"ColorWarn":    string(ColorWarn),
-		"ColorSOS":     string(ColorSOS),
-		"ColorData":    string(ColorData),
-		"ColorMuted":   string(ColorMuted),
-		"ColorNeutral": string(ColorNeutral),
+	colors := map[string]color.Color{
+		"ColorBorder":  ColorBorder,
+		"ColorOK":      ColorOK,
+		"ColorWarn":    ColorWarn,
+		"ColorSOS":     ColorSOS,
+		"ColorData":    ColorData,
+		"ColorMuted":   ColorMuted,
+		"ColorNeutral": ColorNeutral,
 	}
 	for name, c := range colors {
-		if c == "" {
+		if c == nil {
 			t.Errorf("%s пуст — вероятная опечатка в определении палитры", name)
 		}
 	}
@@ -74,10 +75,10 @@ func TestLoad_OverridesSpecifiedFieldsOnly(t *testing.T) {
 		t.Fatalf("Load: %v", err)
 	}
 
-	if string(ColorBorder) != "99" {
+	if ColorBorder != lipgloss.Color("99") {
 		t.Errorf("ColorBorder = %q, want %q (переопределено из файла)", ColorBorder, "99")
 	}
-	if string(ColorOK) != defaultPalette.OK {
+	if ColorOK != lipgloss.Color(defaultPalette.OK) {
 		t.Errorf("ColorOK = %q, want %q (не переопределялось, должен остаться дефолт)", ColorOK, defaultPalette.OK)
 	}
 }
@@ -149,7 +150,7 @@ func TestLoadIfExists_LoadsWhenFilePresent(t *testing.T) {
 	if err := LoadIfExists(path); err != nil {
 		t.Fatalf("LoadIfExists: %v", err)
 	}
-	if string(ColorBorder) != "55" {
+	if ColorBorder != lipgloss.Color("55") {
 		t.Errorf("ColorBorder = %q, want %q", ColorBorder, "55")
 	}
 }

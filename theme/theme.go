@@ -18,9 +18,10 @@ package theme
 
 import (
 	"fmt"
+	"image/color"
 	"os"
 
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/lipgloss/v2"
 	"github.com/goccy/go-yaml"
 )
 
@@ -71,13 +72,13 @@ var current = defaultPalette
 // введения конфигурируемости. Пересчитываются в applyCurrent(),
 // вызываемой из init() и из каждого успешного Load().
 var (
-	ColorBorder  lipgloss.Color
-	ColorOK      lipgloss.Color
-	ColorWarn    lipgloss.Color
-	ColorSOS     lipgloss.Color
-	ColorData    lipgloss.Color
-	ColorMuted   lipgloss.Color
-	ColorNeutral lipgloss.Color
+	ColorBorder  color.Color
+	ColorOK      color.Color
+	ColorWarn    color.Color
+	ColorSOS     color.Color
+	ColorData    color.Color
+	ColorMuted   color.Color
+	ColorNeutral color.Color
 
 	MutedStyle  lipgloss.Style
 	DataStyle   lipgloss.Style
