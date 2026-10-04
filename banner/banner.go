@@ -42,6 +42,8 @@ const (
 	FontSlant    Font = "slant"
 	FontMini     Font = "mini"
 	FontBig      Font = "big"
+	// FontBanner3 — крупный сплошной шрифт из "#" (7 строк): логотип.
+	FontBanner3 Font = "banner3"
 )
 
 // Align — горизонтальное выравнивание результата Render относительно
@@ -128,7 +130,7 @@ func alignLine(line string, maxLen, width int, align Align) string {
 // для мелких терминалов; здесь перечислены только те, что были явно
 // проверены на разборчивость.
 func Fonts() []Font {
-	return []Font{FontStandard, FontSmall, FontSlant, FontMini, FontBig}
+	return []Font{FontStandard, FontSmall, FontSlant, FontMini, FontBig, FontBanner3}
 }
 
 // IsKnownFont — true, если font входит в Fonts() (т.е. заведомо

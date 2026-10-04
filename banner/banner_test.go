@@ -158,3 +158,20 @@ func TestMustRender_DoesNotPanicOnEmptyFont(t *testing.T) {
 	// "неизвестный шрифт" — не должен вызывать панику.
 	_ = MustRender("test", Options{})
 }
+
+func TestFonts_AllKnownFontsRenderDigitsAndColon(t *testing.T) {
+	for _, f := range Fonts() {
+		if out := Render("07:06:34", Options{Font: f}); out == "" {
+			t.Errorf("шрифт %q вернул пустой результат для цифр и двоеточия", f)
+		}
+	}
+}
+
+func TestFontBanner3_IsKnownAndRenders(t *testing.T) {
+	if !IsKnownFont(FontBanner3) {
+		t.Fatal("FontBanner3 должен входить в Fonts()")
+	}
+	if out := Render("dtrader", Options{Font: FontBanner3}); out == "" {
+		t.Error("FontBanner3 вернул пустой результат")
+	}
+}
